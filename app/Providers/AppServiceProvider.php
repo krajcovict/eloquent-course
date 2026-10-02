@@ -6,10 +6,11 @@ use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Validation\Rules\Password;
+use Illuminate\Validation\Rules\Password as PasswordFacade;
 
-use Illuminate\Support\Facades\Password;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Password as PasswordRule;
+use Illuminate\Support\Facades\Password;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -41,9 +42,9 @@ class AppServiceProvider extends ServiceProvider
             app()->isProduction(),
         );
 
-        Password::defaults(
-            fn(): ?Password => app()->isProduction()
-                ? Password::min(12)
+        PasswordFacade::defaults(
+            fn(): ?PasswordRule => app()->isProduction()
+                ? PasswordRule::min(12)
                 ->mixedCase()
                 ->letters()
                 ->numbers()
