@@ -44,7 +44,7 @@ class AppServiceProvider extends ServiceProvider
 
         PasswordFacade::defaults(
             fn(): ?PasswordRule => app()->isProduction()
-                ? PasswordRule::min(12)
+                ? PasswordRule::min(8)
                 ->mixedCase()
                 ->letters()
                 ->numbers()

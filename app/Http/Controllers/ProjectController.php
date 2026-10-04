@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
@@ -12,7 +13,18 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        //
+        echo "Hello";
+
+        $user = User::firstOrCreate(
+            ['email' => 'admin@admin.com'],
+            ['name' => 'Admin', 'password' => 'password']
+        );
+
+        dump($user->wasRecentlyCreated ? 'Created' : 'Found');
+        dump($user->isDirty() ? 'Edited' : 'Unedited');
+        $user->name = 'Donald';
+        $user->save();
+        dump($user->wasChanged() ? 'Changed' : 'Unchanged');
     }
 
     /**
