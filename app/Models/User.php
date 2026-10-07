@@ -16,6 +16,8 @@ use Laravel\Fortify\Contracts\PasskeyUser;
 use Laravel\Fortify\PasskeyAuthenticatable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use App\Models\Project;
 /**
  * @property int $id
  * @property string $name
@@ -67,5 +69,10 @@ class User extends Authenticatable implements MustVerifyEmail, PasskeyUser
         return Attribute::make(
             get: fn($value) => $this->created_at->diffForHumans(),
         );
+    }
+
+        public function lastProject(): HasOne
+    {
+        return $this->hasOne(Project::class)->latest();
     }
 }
